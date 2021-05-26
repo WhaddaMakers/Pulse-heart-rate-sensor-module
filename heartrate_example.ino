@@ -1,3 +1,21 @@
+/*
+  @@@@@@@@@@@@@@@@@@@@@@                                                                                                                               
+  @@@@@@@@@@@@@@@@@@@@@@             @@@.    @@@    @@@.     @@@@    @@@@        @@@@@@@@@        @@@@@@@@@@@@@.     .@@@@@@@@@@@@@        @@@@@@@@@  
+  @@@@@%%@@@%%@@@%%@@@@@             @@@@    @@@    @@@@     @@@@    @@@@       @@@@@@@@@@        @@@@@@@@@@@@@@     @@@@@@@@@@@@@@        @@@@@@@@@  
+  @@@@@  @@@  @@@  @@@@@             @@@@    @@@    @@@@     @@@@    @@@@       @@@@   @@@@        @@@@@   @@@@@       @@@@@   @@@@       @@@@   @@@@ 
+  @@@@@            @@@@@             @@@@   @@@@    @@@@     @@@@@@@@@@@@       @@@@   @@@@        @@@@@   @@@@@       @@@@@   @@@@       @@@@   @@@@ 
+  @@@@@   @    @   @@@@@             @@@@   @@@@    @@@@     @@@@@@@@@@@@       @@@@@@@@@@@        @@@@@   @@@@@       @@@@@   @@@@       @@@@@@@@@@@ 
+  @@@@@            @@@@@             @@@@###@@@@@##@@@@@     @@@@    @@@@      @@@@@@@@@@@@       #@@@@@###@@@@@     ##@@@@@###@@@@       @@@@@@@@@@@
+  @@@@@@@@@@@@@@@@@@@@@@             @@@@@@@@@@@@@@@@@@@     @@@@    @@@@      @@@@    @@@@@      @@@@@@@@@@@@@@     @@@@@@@@@@@@@@      @@@@     @@@@
+  @@@@@@@@@@@@@@@@@@@@@@
+  
+  Whadda pulse / Heart rate sensor module (WPI340 / VMA340)
+  This example shows how you can measure the heart rate with the Whadda pulse / Heart rate sensor module (WPI340 / VMA340).
+
+  For more information about the Whadda pulse / Heart rate sensor module (WPI340 / VMA340), check the manual available at whadda.com
+  
+ */
+ 
 //  Variables
 int pulsePin = 0;                         // Pulse Sensor S (signal) wire connected to analog pin 0
 int blinkPin = 13;                        // pin to blink led at each beat
