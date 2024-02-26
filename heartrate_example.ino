@@ -25,7 +25,7 @@ volatile int BPM;                         // int that holds raw Analog in 0. upd
 volatile int Signal;                      // holds the incoming raw data
 volatile int IBI = 600;                   // int that holds the time interval between beats!
 volatile boolean Pulse = false;           // "True" when User's live heartbeat is detected. "False" when not a "live beat". 
-volatile boolean QS = false;              // becomes true when Arduoino finds a beat.
+volatile boolean QS = false;              // becomes true when Arduino finds a beat.
 volatile int rate[10];                    // array to hold last ten IBI values
 volatile unsigned long sampleCounter = 0; // used to determine pulse timing
 volatile unsigned long lastBeatTime = 0;  // used to find IBI
@@ -72,7 +72,7 @@ ISR(TIMER2_COMPA_vect) //triggered when Timer2 counts to 124
   sampleCounter += 2;                         // keep track of the time in mS with this variable
   int N = sampleCounter - lastBeatTime;       // monitor the time since the last beat to avoid noise
                                               // find the peak and trough of the pulse wave
-  if(Signal < thresh && N > (IBI/5)*3)        // avoid dichrotic noise by waiting 3/5 of last IBI
+  if(Signal < thresh && N > (IBI/5)*3)        // avoid dicrotic noise by waiting 3/5 of last IBI
     {      
       if (Signal < T) // T is the trough
       {                        
@@ -80,15 +80,15 @@ ISR(TIMER2_COMPA_vect) //triggered when Timer2 counts to 124
       }
     }
 
-  if(Signal > thresh && Signal > P)
-    {          // thresh condition helps avoid noise
-      P = Signal;                             // P is the peak
+  if(Signal > thresh && Signal > P)          // thresh condition helps avoid noise
+    {          
+      P = Signal;                            // P is the peak
     }                                        // keep track of highest point in pulse wave
 
   //  NOW IT'S TIME TO LOOK FOR THE HEART BEAT
-  // signal surges up in value every time there is a pulse
-  if (N > 250)
-  {                                   // avoid high frequency noise
+  //  signal surges up in value every time there is a pulse
+  if (N > 250)                                      // avoid high frequency noise
+  {                                   
     if ( (Signal > thresh) && (Pulse == false) && (N > (IBI/5)*3) )
       {        
         Pulse = true;                               // set the Pulse flag when we think there is a pulse
@@ -96,10 +96,10 @@ ISR(TIMER2_COMPA_vect) //triggered when Timer2 counts to 124
         IBI = sampleCounter - lastBeatTime;         // measure time between beats in mS
         lastBeatTime = sampleCounter;               // keep track of time for next pulse
   
-        if(secondBeat)
-        {                        // if this is the second beat, if secondBeat == TRUE
-          secondBeat = false;                  // clear secondBeat flag
-          for(int i=0; i<=9; i++) // seed the running total to get a realisitic BPM at startup
+        if(secondBeat)                              // if this is the second beat, if secondBeat == TRUE
+        {                                           
+          secondBeat = false;                       // clear secondBeat flag
+          for(int i=0; i<=9; i++)                   // seed the running total to get a realisitic BPM at startup
           {             
             rate[i] = IBI;                      
           }
@@ -130,8 +130,8 @@ ISR(TIMER2_COMPA_vect) //triggered when Timer2 counts to 124
     }                       
   }
 
-  if (Signal < thresh && Pulse == true)
-    {   // when the values are going down, the beat is over
+  if (Signal < thresh && Pulse == true)      // when the values are going down, the beat is over
+    {   
       digitalWrite(blinkPin,LOW);            // turn off pin 13 LED
       Pulse = false;                         // reset the Pulse flag so we can do it again
       amp = P - T;                           // get amplitude of the pulse wave
@@ -140,8 +140,8 @@ ISR(TIMER2_COMPA_vect) //triggered when Timer2 counts to 124
       T = thresh;
     }
 
-  if (N > 2500)
-    {                           // if 2.5 seconds go by without a beat
+  if (N > 2500)                              // if 2.5 seconds go by without a beat
+    {                           
       thresh = 512;                          // set thresh default
       P = 512;                               // set P default
       T = 512;                               // set T default
@@ -150,5 +150,5 @@ ISR(TIMER2_COMPA_vect) //triggered when Timer2 counts to 124
       secondBeat = false;                    // when we get the heartbeat back
     }
 
-  sei();                                   // enable interrupts when youre done!
+  sei();                                     // enable interrupts when youre done!
 }// end isr
